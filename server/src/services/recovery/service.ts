@@ -5004,6 +5004,11 @@ export function recoveryService(
         // interrupted run gets — the retry keeps the handoff context, so it
         // is still the corrective run — and escalate only once that retry
         // budget is spent or a finished attempt still leaves no disposition.
+        // Native-runtime corrective runs have no process-loss retry lane
+        // (a graceful shutdown suspends their controller for reattach
+        // instead of interrupting them; other native interruptions are
+        // reconciled by their own finalizer), so the recovery enqueue
+        // returns null for them and they escalate exactly as before.
         if (latestRun?.status === "interrupted") {
           if (await isInvocationBudgetBlocked(issue, agentId)) {
             result.skipped += 1;
