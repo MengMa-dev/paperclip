@@ -316,8 +316,8 @@ try {
     },
     artifacts: {
       grokLauncher: {
-        path: "node_modules/@paperclipai/paperclip-runner/dist/providers/grok/launcher.cjs",
-        sha256: sha256File(join(temporaryRoot, "node_modules/@paperclipai/paperclip-runner/dist/providers/grok/launcher.cjs")),
+        path: "dist/providers/grok/launcher.cjs",
+        sha256: sha256File(join(temporaryRoot, "dist/providers/grok/launcher.cjs")),
       },
       nodeCommand: {
         path: nodeCommand,

@@ -9252,7 +9252,7 @@ const REMOTE_PROVIDER_PACK_PROFILE_DIGESTS = {
     "sha256:c4538599d1ab767db5dff50934f13bb5ba313a59d9c4a83e993fac4617ea63d3",
 } as const;
 const REMOTE_PROVIDER_PACK_ARTIFACT_PATHS = {
-  grokLauncher: "node_modules/@paperclipai/paperclip-runner/dist/providers/grok/launcher.cjs",
+  grokLauncher: "dist/providers/grok/launcher.cjs",
   nodeCommand: "node_modules/node/bin/node",
   productionLock: "pnpm-lock.yaml",
   opencodeCommand: "node_modules/.bin/opencode",
