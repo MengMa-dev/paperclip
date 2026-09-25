@@ -173,7 +173,7 @@ jobs:
           set -uo pipefail
           pnpm install --frozen-lockfile --ignore-scripts
           status=0
-          for check in 'pnpm -r typecheck' 'pnpm test:run' 'pnpm check:token-gates' 'pnpm test:e2e:runner:typecheck' 'pnpm test:e2e:runner:unit' 'pnpm build'; do
+          for check in 'pnpm -r typecheck' 'pnpm test:run' 'pnpm check:token-gates' 'pnpm test:e2e:runner:typecheck' 'pnpm test:e2e:runner:unit' 'pnpm build' 'if [ -f scripts/verify-grok-npm-install.mjs ]; then node scripts/verify-grok-npm-install.mjs; fi'; do
             label="$(echo "$check" | tr -cs 'a-zA-Z0-9' '-')"
             echo "Starting $check"
             check_status=0
