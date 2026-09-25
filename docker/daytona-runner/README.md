@@ -110,3 +110,7 @@ Refresh exact runtime versions and qualification digests together; never downloa
 dependencies when a task starts. Grok's additive native ACP profile keeps its
 qualified 1.0.13 executable at a verified package path. It does not replace the
 legacy adapter's `grok` command on PATH.
+
+Native Grok is an image prerequisite at `/opt/paperclip/providers/grok/1.0.13/grok`.
+Its checksum-verified provisioning is separate from the provider pack, which ships
+only the built-in launcher. Public npm installation never downloads this binary.
