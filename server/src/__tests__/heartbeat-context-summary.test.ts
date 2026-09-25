@@ -448,6 +448,58 @@ describe("buildPaperclipTaskMarkdown", () => {
     expect(commentWake).toContain("Update the plan only. Do not write code or perform implementation work.");
     expect(commentWake).not.toContain("Create child issues from the approved plan only");
   });
+
+  it("puts a non-plan confirmation reason in the wake and does not repeat a rejected plan reason", () => {
+    const issue = {
+      id: "issue-9",
+      identifier: "PAP-9",
+      title: "Confirm the condition",
+      workMode: "standard",
+      description: null,
+    };
+    const accepted = buildPaperclipTaskMarkdown({
+      issue,
+      confirmationResolution: {
+        kind: "request_confirmation",
+        status: "accepted",
+        reason: "do X only under condition Y",
+      },
+    });
+    expect(accepted).toContain("Confirmation decision:");
+    expect(accepted).toContain("do X only under condition Y");
+
+    const rejected = buildPaperclipTaskMarkdown({
+      issue,
+      confirmationResolution: {
+        kind: "request_confirmation",
+        status: "rejected",
+        reason: "not now",
+      },
+    });
+    expect(rejected).toContain("not now");
+
+    const blank = buildPaperclipTaskMarkdown({
+      issue,
+      confirmationResolution: {
+        kind: "request_confirmation",
+        status: "accepted",
+        reason: "   ",
+      },
+    });
+    expect(blank).not.toContain("Confirmation decision:");
+
+    const rejectedPlan = buildPaperclipTaskMarkdown({
+      issue: { ...issue, workMode: "planning" },
+      planReview: { status: "rejected", reason: "change the plan" },
+      confirmationResolution: {
+        kind: "request_confirmation",
+        status: "rejected",
+        reason: "change the plan",
+      },
+    });
+    expect(rejectedPlan.match(/User's requested changes:/g)).toHaveLength(1);
+    expect(rejectedPlan).not.toContain("Confirmation decision:");
+  });
 });
 
 describe("mergeCoalescedContextSnapshot", () => {
